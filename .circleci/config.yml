@@ -5,17 +5,14 @@ jobs:
       - image: python:3.8
     steps:
       - checkout
-
       - run:
-        # creates a virtual environment for you project. 
-				# install dependencies in it and run tests.
-          name: Run unit tests
+          name: Create venv and run unit test
           command: |
             python3 -m venv venv
             . venv/bin/activate
             pip install -r requirements.txt
             pytest
-			# Creates a remote Docker environment configured to execute Docker commands.
+
       - setup_remote_docker 
        
       - run:
@@ -29,16 +26,12 @@ jobs:
             mv /tmp/docker/* /usr/bin
       - run:
          # Builds a docker image to push to Docker Hub
-				 # Tag (-t) pattern is below, where CircleCI 
-				 # to get the Dockerfile from the current directory.
          # <docker_hub_username/repo_name:version>.
           name: Build Docker image
-          command: docker build -t khabdrick/circleci-tutorial:v1 .
+          command: docker build -t akobulife/flask-test:v1 .
 
       - run:
         # Pushes the Docker image you created to the Docker Hub.
-        # Replace khabdrick/circleci-tutorial:v1 with the 
-				# <docker_hub_username/docker-hub-password:version> you used to build the image above
           name: Push to Docker Hub
           command: |
            # docker login -u unsername -p password
