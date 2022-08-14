@@ -34,5 +34,5 @@ jobs:
         # Pushes the Docker image you created to the Docker Hub.
           name: Push to Docker Hub
           command: |
-           # docker login -u unsername -p password
+            docker login -u Akobulife -p BOLton419@
             docker push akobulife/flask-test:v1
